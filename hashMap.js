@@ -1,6 +1,7 @@
-console.log('Project Hash Map')
+console.log('Project Hash Map: HashMap')
 
 // self limit function
+// Didn't use this self-limit function because I declare array with size
 function limitArrayLenght() {
     if (index < 0 || index >= buckets.length) {
         throw new Error('Trying to access index out of bound')
@@ -27,19 +28,18 @@ class HashMap {
     set(key, value) {
         // if a key already exists, then the old value is overwritten or say that we update the key's value
         const index = this.hash(key)
-        // console.log(index)
         if (this.buckets[index] !== undefined) {
             console.log('key\'s value has been updated')
             this.buckets[index] = {key, value}
+            console.log(index, this.buckets[index])
         } else {
             console.log('new key\'s value added')
             this.buckets[index] = {key, value}
             console.log(index, this.buckets[index])
         }
-        // console.log(this.buckets[index])
     }
 
-    // takes 1 argumnent as a key and returns the value that is assigned to this key
+    // takes 1 argument as a key and returns the value that is assigned to this key
     get(key) {
         const index = this.hash(key)
         // if the key is not found, return null
@@ -53,8 +53,9 @@ class HashMap {
     has(key) {
         const index = this.hash(key)
         if (this.buckets[index] !== undefined && key === this.buckets[index].key) {
-            console.log('has key = true')
             return true
+        } else {
+            return false
         }
     }
 
@@ -63,6 +64,9 @@ class HashMap {
         const index = this.hash(key)
         if (this.has(key)) {
             this.buckets.splice(index, 1)
+            return true
+        } else {
+            return false
         }
     }
 
@@ -80,11 +84,15 @@ class HashMap {
 
     // removes all entries in the hash map
     clear() {
-        
+        console.log('Clearing all entries:')
+        while (this.buckets.length > 0) {
+            this.buckets.pop()
+        }
     }
 
     // return an array containing all the keys inside the hash map
     keys() {
+        console.log('Display all keys')
         let keyArr = []
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i] !== undefined) {
@@ -96,6 +104,7 @@ class HashMap {
 
     // returns an array containing all the values
     values() {
+        console.log('Display all values')
         let valueArr = []
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i] !== undefined) {
@@ -110,7 +119,6 @@ class HashMap {
         let allEntries = []
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i] !== undefined) {
-                
                 allEntries.push(`[first name: ${this.buckets[i].key}, last name: ${this.buckets[i].value}]`)
             }
         }
@@ -118,28 +126,21 @@ class HashMap {
     }
 }
 
-// extra credit: create a HashSet class that behaves the same as a HashMap but only contains keys with no values
-class HashSet {
-    constructor() {
+// HashMap tests:
+const newHashMap = new HashMap()
 
-    }
-}
-
-// tests:
-const newMap = new HashMap() // returns "[<5 empty items>]"
-// console.log(newMap.hash('Eabha'))
-
-newMap.set('Caoimhe', 'Buckley')
-// newMap.set('Caoimhe', 'Buckley')
-
-newMap.get('Caoimhe')
-// newMap.has(5)
-// console.log(newMap.buckets)
-newMap.set('Saoirse', 'Ronan')
-newMap.length()
-
-// newMap.keys()
-// newMap.values()
-// newMap.remove(6)
-
-newMap.entries()
+newHashMap.set('Caoimhe', 'Buckley')
+newHashMap.set('Aine', 'Rogers')
+newHashMap.set('Sarah', 'Buckley')
+newHashMap.set('Liam', 'Gallagher')
+newHashMap.get('Caoimhe')
+newHashMap.has('Aine')
+newHashMap.set('Saoirse', 'Ronan')
+newHashMap.length()
+newHashMap.keys()
+newHashMap.values()
+newHashMap.remove('Sarah')
+newHashMap.keys()
+newHashMap.values()
+newHashMap.clear()
+newHashMap.entries()
