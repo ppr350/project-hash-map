@@ -93,13 +93,14 @@ function HashSet(key) {
 
         // returns an array that contains each key, value pair, for example: [[firstKey: firstValue], [secondKey: secondValue]]
         entries() {
+            console.log('Display all entries')
             let allEntries = []
             for (let i = 0; i < this.buckets.length; i++) {
                 if (this.buckets[i] !== undefined) {
                     allEntries.push(`[first name: ${this.buckets[i].key}]`)
-                }
-                console.log(allEntries)
+                }  
             }
+            console.log(allEntries)
         }
     }
 }
@@ -115,4 +116,5 @@ newHashSet.length()
 newHashSet.remove('John')
 newHashSet.keys()
 newHashSet.entries()
-
+newHashSet.clear()
+newHashSet.entries()
